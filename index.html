@@ -55,10 +55,16 @@
 
 <br />
 <button id="btn-append">Add to list</button>&nbsp;
-<button id="btn-clear">Clear List</button>&nbsp;
-
+<button id="btn-clear">Clear list</button>&nbsp;
+	<br>
+	<textarea id = "textarea"></textarea> 
+	<br>
+	
+<button id="copy-to-clip">Copy to clipboard</button>&nbsp;
 
 	<table id="data-table"></table>
+	
+
 	
 
 	</div>
@@ -75,12 +81,13 @@
         zoom: 6 // starting zoom
     });
 	
-// Add zoom and rotation controls to the map.
+	// Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl());
-	
+
+
     map.on('click', function(e) {
     
-    	var coordinates = e.lngLat.wrap();
+    	window.coordinates = e.lngLat.wrap();
     	
     	var coordstext = JSON.stringify(e.lngLat.wrap());
     	var coordstext = coordstext.replace('{"lng":',"")
@@ -196,7 +203,7 @@ $(document).ready(function(e) {
     
     var dt = dynamicTable.config('data-table', 
                                  ['field1', 'blank','field2', 'field3'], 
-                                 ['Placename', '','Long.', 'Lat.'], //set to null for field names instead of custom header names
+                                 ['Place name', '','Long.', 'Lat.'], //set to null for field names instead of custom header names
                                  'No items...');
     
     $('#btn-append').click(function(e) {
@@ -205,11 +212,35 @@ $(document).ready(function(e) {
         { field1: placename, field2: splits[0], field3: splits[1], blank: '' },
         ];
         dt.load(data1, true);
+        
+        var the_textarea = document.getElementById('textarea');
+        
+		var textValue= the_textarea.value;  //-> don't use .innerHTML since there is no HTML in a textarea element
+
+        
+        if (textValue == '') {
+        		$('#textarea').val(placename + "\t" + splits[0] + "\t" + splits[1]);
+        	} else{	        	
+        		$('#textarea').val( textValue  + "\n" + placename + "\t" + splits[0] + "\t" + splits[1]);
+        	}
+        
+        new mapboxgl.Marker()
+			.setLngLat(coordinates)
+			.addTo(map);
+        
     });
     
     $('#btn-clear').click(function(e) {
         dt.clear();
+        
+        $('#textarea').val('');
     });
+    
+    $('#copy-to-clip').click(function(e) {
+    	$('#textarea').select();
+    	document.execCommand('copy');
+    })
+    
     
 });
     
