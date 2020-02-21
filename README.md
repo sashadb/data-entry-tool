@@ -1,6 +1,6 @@
 # Data Entry Tool for Leaflet maps with Google Sheets
 
-This is a mapping tool to make geocoding and entering points into DataVizForAll leaflet maps and story maps with google sheets.
+This is a mapping tool to make geocoding and entering points into DataVizForAll leaflet maps and story maps with Google Sheets.
 
 To use the tool follow the link:
 https://sashadb.github.io/data-entry-tool/
