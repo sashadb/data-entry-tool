@@ -88,7 +88,7 @@ map.addControl(new mapboxgl.NavigationControl());
     map.on('click', function(e) {
     
     	window.coordinates = e.lngLat.wrap();
-	// window.zoomlevel = e.getZoom();    
+	window.zoomlevel = map.getZoom();    
 	
     	
     	var coordstext = JSON.stringify(e.lngLat.wrap());
@@ -221,9 +221,9 @@ $(document).ready(function(e) {
 
         
         if (textValue == '') {
-        		$('#textarea').val(placename + "\t"+ "\t"+ "\t"+ "\t"+ "\t"+ "\t" + "\t" + splits[0] + "\t" + splits[1]);
+        		$('#textarea').val(placename + "\t"+ "\t"+ "\t"+ "\t"+ "\t"+ zoomlevel + "\t" + "\t" + splits[0] + "\t" + splits[1]);
         	} else{	        	
-        		$('#textarea').val( textValue  + "\n" + placename + "\t"+ "\t"+ "\t"+ "\t"+ "\t" + "\t" + "\t" + splits[0] + "\t" + splits[1]);
+        		$('#textarea').val( textValue  + "\n" + placename + "\t"+ "\t"+ "\t"+ "\t"+ "\t" + zoomlevel +  "\t" + "\t" + splits[0] + "\t" + splits[1]);
         	}
         
         new mapboxgl.Marker()
