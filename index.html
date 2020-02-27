@@ -39,10 +39,46 @@
 
 
 <div id="map"></div>
+
+
+<style>
+#menu {
+position: absolute;
+bottom: 20px;
+right: 25%;
+background: #fff;
+padding: 10px;
+font-family: 'Open Sans', sans-serif;
+background-color: rgba(255,255,255, 0.47); 
+}
+</style>
+<div id="menu">
+<input
+id="mapbox://styles/mapbox/streets-v11"
+type="radio"
+name="rtoggle"
+value="streets"
+checked="checked"
+/>
+<label for="streets">Streets</label>
+
+<br>
+
+<input id="mapbox://styles/sashasayshi/ck7506mt10apm1immeaxvzhad" type="radio" name="rtoggle" value="satellite" />
+<label for="satellite">Satellite</label>
+</div>
+
+
+
+
+
+
+
 <div id = "sidebar">
 	<div id = "text">
-		<a href = "https://github.com/sashadb/data-entry-tool" style = "float: right;" target = "_blank">about</a>
-
+		<a href = "https://github.com/sashadb/data-entry-tool" style = "float: right;" target = "_blank">
+			about
+			</a>
 	
 	<pre id="info">
 	</pre>
@@ -75,13 +111,26 @@
 
 
 <script>
-	mapboxgl.accessToken = 'pk.eyJ1Ijoic2FzaGFzYXlzaGkiLCJhIjoiY2lpN2l5NGdzMDA4Z3YzbHhpOGdpenJlZiJ9._oo7Bf5SV7ELBQHy7wuUSQ';
-    var map = new mapboxgl.Map({
-        container: 'map', // container id
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [-8, 53.3], // starting position
-        zoom: 6 // starting zoom
-    });
+mapboxgl.accessToken = 'pk.eyJ1Ijoic2FzaGFzYXlzaGkiLCJhIjoiY2lpN2l5NGdzMDA4Z3YzbHhpOGdpenJlZiJ9._oo7Bf5SV7ELBQHy7wuUSQ';
+
+	var map = new mapboxgl.Map({
+		container: 'map',
+		style: 'mapbox://styles/mapbox/streets-v11',
+		zoom: 6,
+		center: [-8, 53.3]
+});
+ 
+var layerList = document.getElementById('menu');
+var inputs = layerList.getElementsByTagName('input');
+ 
+function switchLayer(layer) {
+var layerId = layer.target.id;
+map.setStyle(layerId);
+}
+ 
+for (var i = 0; i < inputs.length; i++) {
+inputs[i].onclick = switchLayer;
+}
 	
 	// Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl());
@@ -90,8 +139,7 @@ map.addControl(new mapboxgl.NavigationControl());
     map.on('click', function(e) {
     
     	window.coordinates = e.lngLat.wrap();
-	window.zoomlevel = map.getZoom();    
-	
+    	window.zoomlevel = map.getZoom();
     	
     	var coordstext = JSON.stringify(e.lngLat.wrap());
     	var coordstext = coordstext.replace('{"lng":',"")
@@ -223,9 +271,9 @@ $(document).ready(function(e) {
 
         
         if (textValue == '') {
-        		$('#textarea').val(placename + "\t"+ "\t"+ "\t"+ "\t"+ "\t"+ zoomlevel + "\t" + "\t" + splits[0] + "\t" + splits[1]);
+        		$('#textarea').val(placename + "\t" + splits[0] + "\t" + splits[1]);
         	} else{	        	
-        		$('#textarea').val( textValue  + "\n" + placename + "\t"+ "\t"+ "\t"+ "\t"+ "\t" + zoomlevel +  "\t" + "\t" + splits[0] + "\t" + splits[1]);
+        		$('#textarea').val( textValue  + "\n" + placename + "\t" + splits[0] + "\t" + splits[1]);
         	}
         
         new mapboxgl.Marker()
