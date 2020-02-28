@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>Get coordinates of the mouse pointer</title>
+<title>Storymap georeference tool</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js"></script>
 <script src = "jquery-3.4.1.min.js"> </script>
@@ -271,9 +271,9 @@ $(document).ready(function(e) {
 
         
         if (textValue == '') {
-        		$('#textarea').val(placename + "\t" + splits[0] + "\t" + splits[1]);
+        		$('#textarea').val(placename + "\t"+ "\t"+ "\t"+ "\t"+ "\t"+ zoomlevel + "\t" + "\t" + splits[0] + "\t" + splits[1]);
         	} else{	        	
-        		$('#textarea').val( textValue  + "\n" + placename + "\t" + splits[0] + "\t" + splits[1]);
+        		$('#textarea').val( textValue  + "\n" + placename + "\t"+ "\t"+ "\t"+ "\t"+ "\t" + zoomlevel +  "\t" + "\t" + splits[0] + "\t" + splits[1]);
         	}
         
         new mapboxgl.Marker()
