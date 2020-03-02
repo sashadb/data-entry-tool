@@ -1,4 +1,4 @@
-# Data Entry Tool for Leaflet maps with Google Sheets
+# Data Entry Tool for Leaflet Storymaps with Google Sheets
 
 This is a mapping tool to make geocoding and entering points into DataVizForAll leaflet maps and story maps with Google Sheets.
 
