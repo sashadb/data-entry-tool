@@ -158,10 +158,10 @@ map.addControl(new mapboxgl.NavigationControl());
             // e.point is the x, y coordinates of the mousemove event relative
 
             // e.lngLat is the longitude, latitude geographical position of the event
-            "Longitude: " +
-            splits[0] +
-            "<br>Latitude: " +
-            splits[1];
+            "Latitude: " +
+		splits[1] +
+            "<br>Longitude: " +
+            splits[0];
     });
     
     
@@ -255,13 +255,13 @@ $(document).ready(function(e) {
     
     var dt = dynamicTable.config('data-table', 
                                  ['field1', 'blank','field2', 'field3'], 
-                                 ['Place name', '','Long.', 'Lat.'], //set to null for field names instead of custom header names
+                                 ['Place name', '','Lat.', 'Long.'], //set to null for field names instead of custom header names
                                  'No items...');
     
     $('#btn-append').click(function(e) {
     	var placename = document.getElementById("place").value;
         var data1 = [
-        { field1: placename, field2: splits[0], field3: splits[1], blank: '' },
+        { field1: placename, field2: splits[1], field3: splits[0], blank: '' },
         ];
         dt.load(data1, true);
         
@@ -271,9 +271,9 @@ $(document).ready(function(e) {
 
         
         if (textValue == '') {
-        		$('#textarea').val(placename + "\t"+ "\t"+ "\t"+ "\t"+ "\t"+ zoomlevel + "\t" + "\t" + splits[0] + "\t" + splits[1]);
+        		$('#textarea').val(placename + "\t"+ "\t"+ "\t"+ "\t"+ "\t"+ zoomlevel + "\t" + "\t" + splits[1] + "\t" + splits[0]);
         	} else{	        	
-        		$('#textarea').val( textValue  + "\n" + placename + "\t"+ "\t"+ "\t"+ "\t"+ "\t" + zoomlevel +  "\t" + "\t" + splits[0] + "\t" + splits[1]);
+        		$('#textarea').val( textValue  + "\n" + placename + "\t"+ "\t"+ "\t"+ "\t"+ "\t" + zoomlevel +  "\t" + "\t" + splits[1] + "\t" + splits[0]);
         	}
         
         new mapboxgl.Marker()
@@ -284,8 +284,8 @@ $(document).ready(function(e) {
     
     $('#btn-clear').click(function(e) {
         dt.clear();
-        
         $('#textarea').val('');
+	    location.reload();
     });
     
     $('#copy-to-clip').click(function(e) {
